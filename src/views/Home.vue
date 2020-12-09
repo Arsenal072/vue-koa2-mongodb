@@ -1,54 +1,35 @@
 <template>
     <div class="home-wrapper">
-        <div class="outer-wrapper">
-            <div class="left-box">
-                <span class="iconfont icon-icon_xinyong_xianxing_jijin-"></span>
-                <span>后台管理系统</span>
-            </div>
-            <div class="right-box">
-                <div v-if='userInfo&&userInfo.username'>
-                    <span class="iconfont icon-yonghu"></span>
-                    <span>{{userInfo.username}}</span>
-                    <div class="quit-box" @click="logout">
-                        <span>退出</span>
-                        <span class="iconfont icon-tuichu"></span>
-                    </div>
+        <div class='main-content'>
+            <div class='login-box'>
+                <div class='top-title'>{{isRegister?'注 册':'登 录'}}</div>
+                <div class='login-modal'>
+                    <el-form ref="form" :model="form" label-width="80px">
+                        <p class='item-title'>用户名</p>
+                        <el-input v-model="form.username"></el-input>
+                        <p class='item-title'>密码</p>
+                        <el-input v-model="form.password"></el-input>
+                        <div v-if='isRegister'>
+                            <p class='item-title'>确认密码</p>
+                            <el-input v-model="form.confirmPassword"></el-input>
+                        </div>
+                        <div>
+                            <el-button type="primary" @click="login" class='login-btn' v-if='!isRegister'>登 录</el-button>
+                            <p @click='toRegister' class='register-tip' v-if='!isRegister'>还没有账号，去注册一个</p>
+                            <p @click='toLogin' class='register-tip' v-if='isRegister'>已有账号，去登录</p>
+                            <el-button type="primary" @click="register" v-if='isRegister' class='login-btn'>注 冊</el-button>
+                        </div>
+                    </el-form>
                 </div>
             </div>
-        </div>
-        <div class='main-content'>
-            <div class='login-modal'>
-                <span class='title'>{{isRegister?'注 册':'登 录'}}</span>
-                <el-form ref="form" :model="form" label-width="80px">
-                    <span class='item-title'>用户名</span>
-                    <el-input v-model="form.username"></el-input>
-                    <span class='item-title'>密码</span>
-                    <el-input v-model="form.password"></el-input>
-                    <div v-if='isRegister'>
-                        <span class='item-title'>确认密码</span>
-                        <el-input v-model="form.confirmPassword"></el-input>
-                    </div>
-                    <el-form-item>
-                        <el-button type="primary" @click="login" class='login-btn'>登录</el-button>
-                        <p @click='toRegister'>还没有账号，去注册一个</p>
-                        <el-button type="primary" @click="register" v-if='isRegister'>注冊</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
 
-        </div>
-        <div class="bottom-box">
-            <div>&copy;
-                <span>GQchen</span>
-                <span>2019-08-30</span>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Home",
+        name: "home",
         components: {},
         data() {
             return {
@@ -63,19 +44,40 @@
         },
         methods: {
             login() {
-                this.$router.push('/login')
+                let params = {
+                    username: this.form.username,
+                    password: this.form.password
+                }
+                this.$axios.post(this.$apis.dologin, params).then(res=>{
+                    let token = res.rsp.token
+                    this.$store.commit('user/setToken', token)
+                    this.$message({
+                        type: 'success',
+                        message: '登录成功!'
+                    })
+                    this.$router.push('/edit')
+                })
             },
             toRegister() {
                 this.isRegister = true
             },
+            toLogin(){
+                this.isRegister = false
+            },
             register() {
-                this.$router.push('/register')
-            },
-            logout() {
-
-            },
-            onSubmit() {
-                console.log('submit!');
+                let params = {
+                    username: this.form.username,
+                    password: this.form.password
+                }
+                this.$axios.post(this.$apis.register, params).then(res=>{
+                    let token = res.rsp.token
+                    this.$store.commit('user/setToken', token)
+                    this.$message({
+                        type: 'success',
+                        message: '登录成功!'
+                    })
+                    this.$router.push('/edit')
+                })
             }
         }
     }
@@ -118,28 +120,62 @@
         }
 
         .main-content {
-            width: 80%;
-            margin: 0 auto;
+            /* width: 80%; */
+            /* margin: 0 auto; */
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background: url("../assets/images/background.jpg") center top no-repeat fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            /* 兼容Webkit内核浏览器如Chrome和Safari */
+            -o-background-size: cover;
+            /* 兼容Opera */
+            zoom: 1;
+
+            .login-box {
+                position: relative;
+                top: 150px;
+                right: 100px;
+                margin: 0 auto;
+                float: right;
+                width: 350px;
+            }
+
+            .top-title {
+                height: 50px;
+                background-color: #3978ff;
+                color: #fff;
+                text-align: center;
+                line-height: 50px;
+                border-radius: 5px;
+                font-size: 18px;
+
+            }
 
             .login-modal {
-                position: relative;
-                top: 100px;
-                float: right;
-                width: 300px;
                 border: 1px solid #eee;
-                padding: 20px 30px 10px;
+                padding: 15px 30px 20px;
                 background-color: #eee;
-                .title{
-                    font-size: 18px;
-                    font-weight: bold;
+                border-radius: 5px;
+
+                .item-title {
+                    margin: 10px 0;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
                 }
             }
 
             .login-btn {
-                width: 200px;
+                width: 288px;
+                margin: 20px 0 15px;
             }
 
-            background: url('/assets/images/background.gif') no-repeat center top;
+            .register-tip {
+                color: #3a5fcd;
+            }
         }
 
         .bottom-box {
@@ -151,6 +187,7 @@
             line-height: 60px;
             background-color: #3A5FCD;
             color: #fff;
+            text-align: center;
         }
     }
 </style>

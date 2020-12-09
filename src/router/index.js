@@ -1,24 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import home from '../views/home.vue'
+import edit from '../views/edit.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'home',
+    component: () => import(/* webpackChunkName: "home" */ '../views/home.vue')
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import(/* webpackChunkName: "register" */ '../views/register.vue')
+    path: '/edit',
+    name: 'edit',
+    component: () => import(/* webpackChunkName: "edit" */ '../views/edit.vue')
   }
 ]
 

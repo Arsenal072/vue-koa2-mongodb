@@ -1,5 +1,5 @@
 
-let Student = require('../model/curd')
+let Student = require('../model').Student
 
 module.exports = {
     async index (ctx) {

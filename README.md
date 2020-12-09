@@ -76,3 +76,36 @@ $ npm install
 
 **start 和 test 可以直接用 npm start 和 npm test 运行，而 dev 和 prd 需要用 npm run dev 和 npm run prd 运行（注意中间有个 run）**
 
+
+
+
+
+#### 前端项目与后台项目建立连接
+
+前端服务: http://localhost:8090/
+
+后端服务：http://127.0.0.1:4000
+
+配置代理：
+
+```js
+devServer: {
+    disableHostCheck: true,
+    port: 8090,
+    proxy: {
+        '^/api': {
+            target: 'http://127.0.0.1:4000',
+            ws: true,
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': '/'
+            }
+        }
+    },
+    overlay: {
+        warnings: true,
+        errors: true
+    }
+}
+```
+
