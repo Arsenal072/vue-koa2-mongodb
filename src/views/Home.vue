@@ -18,19 +18,20 @@
         </div>
         <div class='main-content'>
             <div class='login-modal'>
+                <span class='title'>{{isRegister?'注 册':'登 录'}}</span>
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="用户名">
-                        <el-input v-model="form.username"></el-input>
-                    </el-form-item>
-                    <el-form-item label="密码">
-                        <el-input v-model="form.password"></el-input>
-                    </el-form-item>
-                    <el-form-item label="确认密码">
+                    <span class='item-title'>用户名</span>
+                    <el-input v-model="form.username"></el-input>
+                    <span class='item-title'>密码</span>
+                    <el-input v-model="form.password"></el-input>
+                    <div v-if='isRegister'>
+                        <span class='item-title'>确认密码</span>
                         <el-input v-model="form.confirmPassword"></el-input>
-                    </el-form-item>
+                    </div>
                     <el-form-item>
-                        <el-button type="primary" @click="login">登录</el-button>
-                        <el-button type="primary" @click="register">注冊</el-button>
+                        <el-button type="primary" @click="login" class='login-btn'>登录</el-button>
+                        <p @click='toRegister'>还没有账号，去注册一个</p>
+                        <el-button type="primary" @click="register" v-if='isRegister'>注冊</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -56,12 +57,20 @@
                     username: '',
                     password: '',
                     confirmPassword: ''
-                }
+                },
+                isRegister: false
             }
         },
         methods: {
-            login() {},
-            register() {},
+            login() {
+                this.$router.push('/login')
+            },
+            toRegister() {
+                this.isRegister = true
+            },
+            register() {
+                this.$router.push('/register')
+            },
             logout() {
 
             },
@@ -120,6 +129,14 @@
                 border: 1px solid #eee;
                 padding: 20px 30px 10px;
                 background-color: #eee;
+                .title{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            }
+
+            .login-btn {
+                width: 200px;
             }
 
             background: url('/assets/images/background.gif') no-repeat center top;
