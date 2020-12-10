@@ -36,5 +36,6 @@ router.get('/login', controller.user.login)
 router.post('/dologin', controller.user.dologin)
 router.post('/register', controller.user.register)
 router.get('/getUserList', jwtAuth, controller.user.getUserList)
+router.get('/queryUserInfo', jwtAuth, controller.user.queryUserInfo)
 
 module.exports = router

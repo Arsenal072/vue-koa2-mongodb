@@ -29,6 +29,12 @@ let userSchema = new Schema({
     password: {
         type: String
     },
+    gender: {
+        type: String
+    },
+    desc: {
+        type: String
+    }
     // age: {
     //     type: Number
     // },

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const secret = 'this is a secret'
 
 let User = require('../model').User
 const utils = require('../utils')
@@ -46,5 +47,8 @@ module.exports = {
     async getUserList(ctx){
         let result = await User.find()
         ctx.body = utils.responsHandle(200, '', {userList:result})
+    },
+    async queryUserInfo(ctx){
+        let result = await User.findOne()
     }
 }

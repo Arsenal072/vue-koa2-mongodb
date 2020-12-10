@@ -55,7 +55,7 @@
                         type: 'success',
                         message: '登录成功!'
                     })
-                    this.$router.push('/edit')
+                    this.$router.push('/management')
                 })
             },
             toRegister() {
@@ -76,7 +76,7 @@
                         type: 'success',
                         message: '登录成功!'
                     })
-                    this.$router.push('/edit')
+                    this.$router.push('/management')
                 })
             }
         }

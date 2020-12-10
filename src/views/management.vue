@@ -16,36 +16,18 @@
                 </div>
             </div>
         </div>
-        <div>
-            <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="用户名">
-                    <el-input v-model="form.username"></el-input>
-                </el-form-item>
-                <el-form-item label="活动时间">
-                    <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;">
-                        </el-date-picker>
-                    </el-col>
-                    <el-col class="line" :span="2">-</el-col>
-                    <el-col :span="11">
-                        <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="特殊资源">
-                    <el-radio-group v-model="form.resource">
-                        <el-radio label="线上品牌商赞助"></el-radio>
-                        <el-radio label="线下场地免费"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="个人简介">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即提交</el-button>
-                    <el-button @click='cancel'>取消</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+        <el-table :data="tableData" style="width: 80%" class='table'>
+            <el-table-column prop="username" label="用户名" width="180">
+            </el-table-column>
+            <el-table-column prop="password" label="密码" width="180">
+            </el-table-column>
+            <el-table-column prop="_id" label="id">
+            </el-table-column>
+            <el-table-column label="操作">
+                <el-button type="primary" @click='edit(item)'>编辑</el-button>
+                <el-button type="primary">删除</el-button>
+            </el-table-column>
+        </el-table>
         <div class="bottom-box">
             <div>&copy;
                 <span>GQchen</span>
@@ -56,7 +38,7 @@
 </template>
 <script>
     export default {
-        name: "edit",
+        name: "management",
         components: {},
         data() {
             return {
@@ -65,19 +47,24 @@
             }
         },
         created() {
-            this.getUserInfo()
+            this.getUserList()
         },
         methods: {
-            getUserInfo(){
-                this.$axios.get(this.$apis.queryUserInfo).then(res=>{
-                    console.log('获取用户信息成功！',res)
+            getUserList() {
+                this.$axios.get(this.$apis.queryUserList).then(res => {
+                    this.tableData = res.rsp.userList
                 })
             },
-            onSubmit(){
+            logout() {
 
             },
-            cancel(){
-
+            edit(item){
+                this.$router.push({
+                    path: '/edit',
+                    query: {
+                        id: item._id
+                    }
+                })
             }
         }
     }
