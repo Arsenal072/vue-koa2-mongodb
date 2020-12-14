@@ -1,4 +1,6 @@
 module.exports = {
+    publicPath: '/',
+    assetsDir: 'static',
     devServer: {
         disableHostCheck: true,
         port: 8090,

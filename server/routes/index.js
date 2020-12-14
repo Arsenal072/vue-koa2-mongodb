@@ -1,23 +1,3 @@
-// const router = require('koa-router')()
-
-// router.get('/', async (ctx, next) => {
-//   await ctx.render('index', {
-//     title: 'Hello Koa 2!'
-//   })
-// })
-
-// router.get('/string', async (ctx, next) => {
-//   ctx.body = 'koa2 string'
-// })
-
-// router.get('/json', async (ctx, next) => {
-//   ctx.body = {
-//     title: 'koa2 json'
-//   }
-// })
-
-// module.exports = router
-
 const router = require('koa-router')()
 const controller = require('../controller/index')
 const secret = 'this is a secret'
@@ -36,6 +16,8 @@ router.get('/login', controller.user.login)
 router.post('/dologin', controller.user.dologin)
 router.post('/register', controller.user.register)
 router.get('/getUserList', jwtAuth, controller.user.getUserList)
-router.get('/queryUserInfo', jwtAuth, controller.user.queryUserInfo)
+router.get('/getUserInfo', jwtAuth, controller.user.queryUserInfo)
+router.post('/updateUserInfo', jwtAuth, controller.user.updateUserInfo)
+router.post('/deleteUser', jwtAuth, controller.user.deleteUser)
 
 module.exports = router

@@ -49,6 +49,16 @@ module.exports = {
         ctx.body = utils.responsHandle(200, '', {userList:result})
     },
     async queryUserInfo(ctx){
-        let result = await User.findOne()
+        let result = await User.findOne({_id: ctx.query.id})
+        ctx.body = utils.responsHandle(200, '', result)
+    },
+    async updateUserInfo(ctx){
+        let { body } = ctx.request
+        await User.findByIdAndUpdate({_id: body._id}, body)
+        ctx.body = utils.responsHandle(200, '修改成功', {})
+    },
+    async deleteUser(ctx){
+        await User.findOneAndRemove({_id: ctx.query.id})
+        ctx.body = utils.responsHandle(200, '删除成功!', {})
     }
 }

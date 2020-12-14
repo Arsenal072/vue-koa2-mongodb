@@ -19,13 +19,19 @@
         <el-table :data="tableData" style="width: 80%" class='table'>
             <el-table-column prop="username" label="用户名" width="180">
             </el-table-column>
+            <el-table-column prop="gender" label="性别" width="180">
+            </el-table-column>
             <el-table-column prop="password" label="密码" width="180">
             </el-table-column>
             <el-table-column prop="_id" label="id">
             </el-table-column>
+            <el-table-column prop="desc" label="简介">
+            </el-table-column>
             <el-table-column label="操作">
-                <el-button type="primary" @click='edit(item)'>编辑</el-button>
-                <el-button type="primary">删除</el-button>
+                <template slot-scope="scope">
+                    <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                    <el-button @click="delete(scope.row)" type="text" size="small">删除</el-button>
+                </template>
             </el-table-column>
         </el-table>
         <div class="bottom-box">
@@ -58,12 +64,18 @@
             logout() {
 
             },
-            edit(item){
+            edit(item) {
                 this.$router.push({
                     path: '/edit',
                     query: {
                         id: item._id
                     }
+                })
+            },
+            delete(item){
+                debugger
+                this.$axios.get(this.$apis.deleteUser + `?id=${item._id}`).then(res=>{
+                    console.log('删除',res)
                 })
             }
         }
