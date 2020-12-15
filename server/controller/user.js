@@ -10,9 +10,10 @@ module.exports = {
     },
     async dologin(ctx){
         let { body } = ctx.request
+        console.log('111', ctx)
         let userInfo = body.username
         let result  = await User.findOne(body)
-        if(Object.keys(result).length){
+        if(result&&Object.keys(result).length){
             let responseData = {
                 user: userInfo,
                 token: jwt.sign({

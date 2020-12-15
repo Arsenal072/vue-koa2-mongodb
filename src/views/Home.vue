@@ -10,14 +10,16 @@
                         <p class='item-title'>密码</p>
                         <el-input v-model="form.password"></el-input>
                         <div v-if='isRegister'>
-                            <p class='item-title'>确认密码</p>
+                            <p class='item-title comfirm-password'>确认密码</p>
                             <el-input v-model="form.confirmPassword"></el-input>
                         </div>
                         <div>
-                            <el-button type="primary" @click="login" class='login-btn' v-if='!isRegister'>登 录</el-button>
+                            <el-button type="primary" @click="login" class='login-btn' v-if='!isRegister'>登 录
+                            </el-button>
+                            <el-button type="primary" @click="register" v-if='isRegister' class='login-btn'>注 冊
+                            </el-button>
                             <p @click='toRegister' class='register-tip' v-if='!isRegister'>还没有账号，去注册一个</p>
                             <p @click='toLogin' class='register-tip' v-if='isRegister'>已有账号，去登录</p>
-                            <el-button type="primary" @click="register" v-if='isRegister' class='login-btn'>注 冊</el-button>
                         </div>
                     </el-form>
                 </div>
@@ -48,7 +50,7 @@
                     username: this.form.username,
                     password: this.form.password
                 }
-                this.$axios.post(this.$apis.dologin, params).then(res=>{
+                this.$axios.post(this.$apis.dologin, params).then(res => {
                     let token = res.rsp.token
                     this.$store.commit('user/setToken', token)
                     this.$message({
@@ -61,7 +63,7 @@
             toRegister() {
                 this.isRegister = true
             },
-            toLogin(){
+            toLogin() {
                 this.isRegister = false
             },
             register() {
@@ -69,7 +71,7 @@
                     username: this.form.username,
                     password: this.form.password
                 }
-                this.$axios.post(this.$apis.register, params).then(res=>{
+                this.$axios.post(this.$apis.register, params).then(res => {
                     let token = res.rsp.token
                     this.$store.commit('user/setToken', token)
                     this.$message({
@@ -135,11 +137,9 @@
 
             .login-box {
                 position: relative;
-                top: 150px;
-                right: 100px;
+                top: 200px;
                 margin: 0 auto;
-                float: right;
-                width: 350px;
+                width: 400px;
             }
 
             .top-title {
@@ -166,14 +166,18 @@
                         margin-top: 0;
                     }
                 }
+                .comfirm-password{
+                    padding-top:10px;
+                }
             }
 
             .login-btn {
-                width: 288px;
+                width: 100%;
                 margin: 20px 0 15px;
             }
 
             .register-tip {
+                text-align: center;
                 color: #3a5fcd;
             }
         }

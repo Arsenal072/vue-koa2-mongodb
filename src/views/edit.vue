@@ -17,7 +17,7 @@
             </div>
         </div>
         <div>
-            <el-form ref="form" :model="userInfo" label-width="80px">
+            <el-form ref="form" :model="userInfo" label-width="80px" class='form'>
                 <el-form-item label="用户名">
                     <el-input v-model="userInfo.username"></el-input>
                 </el-form-item>
@@ -32,7 +32,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">立即提交</el-button>
-                    <el-button @click='cancel'>取消</el-button>
+                    <el-button type="primary" @click='cancel'>取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -123,10 +123,9 @@
             }
         }
 
-        .table {
-            margin: 30px auto;
-            padding-left: 20px;
-            border: 1px solid #666;
+        .form{
+            width: 400px;
+            margin: 50px auto;
         }
 
         .bottom-box {

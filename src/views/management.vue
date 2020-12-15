@@ -3,7 +3,7 @@
         <div class="outer-wrapper">
             <div class="left-box">
                 <span class="iconfont icon-icon_xinyong_xianxing_jijin-"></span>
-                <span>后台管理系统</span>
+                <span>文章管理</span>
             </div>
             <div class="right-box">
                 <div v-if='userInfo&&userInfo.username'>
@@ -16,24 +16,30 @@
                 </div>
             </div>
         </div>
-        <el-table :data="tableData" style="width: 80%" class='table'>
-            <el-table-column prop="username" label="用户名" width="180">
-            </el-table-column>
-            <el-table-column prop="gender" label="性别" width="180">
-            </el-table-column>
-            <el-table-column prop="password" label="密码" width="180">
-            </el-table-column>
-            <el-table-column prop="_id" label="id">
-            </el-table-column>
-            <el-table-column prop="desc" label="简介">
-            </el-table-column>
-            <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-                    <el-button @click="delete(scope.row)" type="text" size="small">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+        <div>
+            <div>
+                <p>
+                    <span></span>
+                    <span>{{userInfo.username}}</span>
+                </p>
+            </div>
+            <el-table :data="tableData" style="width: 50%" class='table'>
+                <el-table-column prop="username" label="头像" width="180">
+                </el-table-column>
+                <el-table-column prop="username" label="用户名" width="180">
+                </el-table-column>
+                <el-table-column prop="gender" label="性别" width="180">
+                </el-table-column>
+                <el-table-column prop="desc" label="简介">
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="delete(scope.row)" type="text" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
         <div class="bottom-box">
             <div>&copy;
                 <span>GQchen</span>
@@ -72,10 +78,10 @@
                     }
                 })
             },
-            delete(item){
+            delete(item) {
                 debugger
-                this.$axios.get(this.$apis.deleteUser + `?id=${item._id}`).then(res=>{
-                    console.log('删除',res)
+                this.$axios.get(this.$apis.deleteUser + `?id=${item._id}`).then(res => {
+                    console.log('删除', res)
                 })
             }
         }
@@ -119,9 +125,11 @@
         }
 
         .table {
-            margin: 30px auto;
+            margin: 50px auto;
             padding-left: 20px;
-            border: 1px solid #666;
+            .el-table__header{
+                background-color: #eee;
+            }
         }
 
         .bottom-box {
