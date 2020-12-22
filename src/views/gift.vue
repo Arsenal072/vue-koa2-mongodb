@@ -2,7 +2,7 @@
     <div class="gift-wrapper">
         <div class="main-content">
             <div class='audio-box'>
-                <!-- <audio src="../assets/media/christmaslights.mp3" autoplay="autoplay" controls="controls" loop /></audio> -->
+                <audio src="../assets/media/christmaslights.mp3" autoplay="autoplay" controls="controls" loop /></audio>
             </div>
             <el-carousel :interval="4000" type="card" height="300px" class='carousel-box'>
                 <el-carousel-item v-for="item in imgs" :key="item">
@@ -15,6 +15,11 @@
                 <!-- <span>打开它!</span> -->
                 <div v-else class='note'>
                     <img src="../assets/images/note1.jpg" alt="">
+                    
+                    <div class='note-content'>
+                        <p>海上月是天上月，眼前人是心上人</p> 
+                        <p class='bottom'>宝宝， Merry Christmas!</p>
+                    </div>
                 </div>
             </div>
 
@@ -94,7 +99,7 @@
         .gift-box {
             position: relative;
             width: 500px;
-            margin: 100px auto;
+            margin: 80px auto;
 
             .gift-img {
                 display: block;
@@ -103,9 +108,21 @@
                 margin: 0 auto;
             }
             .note {
-                display: block;
-                width: 300px;
-                margin: 0 auto;
+                position: relative;
+                font-size: 24px;
+                left: -60px;
+                font-family: fantasy;
+                .note-content{
+                    position: absolute;
+                    top: 220px;
+                    left: 140px;
+                    color: red;
+                    .bottom{
+                        float: right;
+                        position: relative;
+                        top: 80px;
+                    }
+                }
             }
         }
 
