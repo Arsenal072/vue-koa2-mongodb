@@ -5,16 +5,17 @@ import edit from '../views/edit.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
-        path: '/',
-        name: 'index',
-        component: () => import( /* webpackChunkName: "index" */ '../views/index.vue')
-    },
-    //   {
+const routes = [
+    // {
     //     path: '/',
-    //     name: 'home',
-    //     component: () => import(/* webpackChunkName: "home" */ '../views/home.vue')
-    //   },
+    //     name: 'index',
+    //     component: () => import( /* webpackChunkName: "index" */ '../views/index.vue')
+    // },
+      {
+        path: '/',
+        name: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '../views/home.vue')
+      },
     {
         path: '/management',
         name: 'management',

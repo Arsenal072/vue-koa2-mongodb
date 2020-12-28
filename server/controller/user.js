@@ -10,7 +10,6 @@ module.exports = {
     },
     async dologin(ctx){
         let { body } = ctx.request
-        console.log('111', ctx)
         let userInfo = body.username
         let result  = await User.findOne(body)
         if(result&&Object.keys(result).length){

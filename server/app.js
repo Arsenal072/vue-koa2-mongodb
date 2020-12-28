@@ -6,9 +6,8 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const path = require('path')
 const render = require('koa-art-template');
-
+const moment = require('moment')
 const index = require('./routes/index')
-// const users = require('./routes/users')
 
 // error handler
 onerror(app)
@@ -33,7 +32,8 @@ app.use(async (ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  const currentTime = moment().format('YYYY-MM-DD HH:mm:ss')
+  console.log(`${ctx.method} ${ctx.url} - ${currentTime} - ${ms}ms`)
 })
 
 // routes
