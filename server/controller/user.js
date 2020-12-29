@@ -9,6 +9,7 @@ module.exports = {
         await ctx.render('login')
     },
     async dologin(ctx){
+        console.log('111',ctx)
         let { body } = ctx.request
         let userInfo = body.username
         let result  = await User.findOne(body)

@@ -11,11 +11,11 @@ const routes = [
     //     name: 'index',
     //     component: () => import( /* webpackChunkName: "index" */ '../views/index.vue')
     // },
-      {
+    {
         path: '/',
         name: 'home',
-        component: () => import(/* webpackChunkName: "home" */ '../views/home.vue')
-      },
+        component: () => import( /* webpackChunkName: "home" */ '../views/home.vue')
+    },
     {
         path: '/management',
         name: 'management',

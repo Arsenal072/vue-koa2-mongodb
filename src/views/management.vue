@@ -79,7 +79,6 @@
                 })
             },
             delete(item) {
-                debugger
                 this.$axios.get(this.$apis.deleteUser + `?id=${item._id}`).then(res => {
                     console.log('删除', res)
                 })

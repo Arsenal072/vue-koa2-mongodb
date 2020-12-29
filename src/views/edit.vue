@@ -34,6 +34,15 @@
                     <el-button type="primary" @click="onSubmit">立即提交</el-button>
                     <el-button type="primary" @click='cancel'>取消</el-button>
                 </el-form-item>
+                <el-form-item label="上传">
+                    <el-upload :disabled="disabledOption" action="#" :limit="5" ref="upload" :on-change="handleChange"
+                        :on-exceed="Exceed" :multiple="true" :auto-upload="false" :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove" accept=".jpg,.jpeg,.png" :file-list="fileList"
+                        list-type="picture-card">
+                        <i class="el-icon-plus"></i>
+                        <div slot="tip" class="el-upload__tip">上传图片大小不超过1M/仅支持png,jpg,jpeg格式/最多上传5张图片</div>
+                    </el-upload>
+                </el-form-item>
             </el-form>
         </div>
         <div class="bottom-box">
@@ -69,7 +78,7 @@
                 })
             },
             onSubmit() {
-                this.$axios.post(this.$apis.updateUserInfo, this.userInfo).then(res=>{
+                this.$axios.post(this.$apis.updateUserInfo, this.userInfo).then(res => {
                     this.$message({
                         type: 'success',
                         message: '修改成功!'
@@ -80,7 +89,7 @@
             cancel() {
 
             },
-            logout(){
+            logout() {
 
             }
         }
@@ -123,7 +132,7 @@
             }
         }
 
-        .form{
+        .form {
             width: 400px;
             margin: 50px auto;
         }
