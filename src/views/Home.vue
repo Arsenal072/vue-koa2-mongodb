@@ -127,7 +127,7 @@
             position: fixed;
             height: 100%;
             width: 100%;
-            background: url("../assets/images/background.jpg") center top no-repeat fixed;
+            background: url("../assets/images/test.jpg") center top no-repeat fixed;
             background-size: cover;
             -webkit-background-size: cover;
             /* 兼容Webkit内核浏览器如Chrome和Safari */
